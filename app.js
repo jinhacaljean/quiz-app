@@ -29,8 +29,8 @@ var questions = [
 	answers: [
 		'Virtute et armis',
 		'Forward',
-		"L'Étoile du Nord",
-		'The crossroads of America'
+		"Land of Enchantment",
+		'The Crossroads of America'
 	],
 	correctAnswer: 'Forward',
 },
@@ -62,7 +62,7 @@ var questions = [
 	answers: [
 		'A canned meat company',
 		'Wool traders that historically traversed the area',
-		'Joe Packingham, the first coach',
+		'Joe Packingham, their first coach',
 		'Nicholas Pacquet, a fur trader who founded Green Bay'
 	],
 	correctAnswer: 'A canned meat company',
@@ -84,6 +84,7 @@ function startQuiz(){
 
 // Function to render question
 function renderQuestion(){
+	$('.js-question-number').text(`Question ${questionIndex + 1} out of ${questions.length}`);
 	$('.js-question').text(questions[questionIndex].question);
 	$('span#answerA').text(questions[questionIndex].answers[0]);
 	$('span#answerB').text(questions[questionIndex].answers[1]);
@@ -94,23 +95,65 @@ function renderQuestion(){
 function checkQuestion(response){
 	// does submitted answer match correct answer?
 	var correctChoice = questions[questionIndex].correctAnswer;
-	if (response === correctChoice) {
+	if (response === correctChoice && questions[questionIndex].questionNumber < questions.length) {
 		// if yes, currentScore += 1
 		currentScore += 1;
-		
+		$('.js-question-submit').hide();
+		$('.js-question-format').after( "<p class = 'answer-text'>Oh you betcha!</p>");
+		$('.js-next-question').removeClass('hidden');
+	}
+	else if (response === correctChoice && questions[questionIndex].questionNumber === questions.length) {
+		currentScore += 1;
+		$('.js-question-submit').hide();
+		$('.js-question-format').after( "<p class = 'answer-text'>Oh you betcha!</p>");
+		$('.js-results').removeClass('hidden');
+	}
+	else if (response !== correctChoice && questions[questionIndex].questionNumber < questions.length) {
+		$('.js-question-submit').hide();
+		$('.js-question-format').after( `<p class = "answer-text">Don'cha know, the correct answer is ${correctChoice}.</p>`);
+		// button appears for next question
+		$('.js-next-question').removeClass('hidden');
+	}
+	else if (response !== correctChoice && questions[questionIndex].questionNumber === questions.length) {
+		$('.js-question-submit').hide();
+		$('.js-question-format').after( `<p class = "answer-text">Don'cha know, the correct answer is ${correctChoice}.</p>`);
+		// button appears for next question
+		$('.js-results').removeClass('hidden');
 	}
 	
-	// button appears for next question
 }
 
+function nextQuestion(){
+	questionIndex += 1;
+	$('.answer-text').hide();
+	$('.js-next-question').addClass('hidden');
+	$('.js-question-submit').show();
+	// clear radio form
+	$('input').prop('checked', false);
+	renderQuestion();
+	
+}
 
+function showResults(){
+	$('.js-question-format').after(`<p class = "answer-text-final">That's it! You got ${currentScore} questions out of ${questions.length} total questions correct.</p>`)
+	$('.js-question-format').hide();
+	$('.js-play-again').removeClass('hidden');
+	$('.js-results').addClass('hidden');
+	$('.js-question-number').hide();
+	$('.answer-text').hide();
+}
 
-
-
-
-
-
-
+function playAgain(){
+	questionIndex = 0;
+	currentScore = 0;
+	$('.js-question-format').show();
+	$('.js-question-number').show();
+	$('.answer-text-final').hide();
+	$('input').prop('checked', false);
+	$('.js-play-again').addClass('hidden');
+	$('.js-question-submit').show();
+	renderQuestion();
+}
 
 
 // Event Listenters
@@ -132,7 +175,22 @@ function handleQuestionSubmit(){
 }
 
 function handleNextQuestion(){
+	$('.js-next-question').click(function(e){
+		nextQuestion();
+	});
+}
 
+function handlePlayAgain (){
+	$('.js-play-again').click(function(e){
+		playAgain();
+		
+	});
+}
+
+function handleResultsClick() {
+	$('.js-results').click(function(e){
+		showResults();
+	});
 }
 
 // function to submit a question
@@ -144,4 +202,7 @@ function handleNextQuestion(){
 $(function(){
 	handleQuizStart();
 	handleQuestionSubmit();
+	handleNextQuestion();
+	handlePlayAgain();
+	handleResultsClick();
 });

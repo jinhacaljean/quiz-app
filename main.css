@@ -35,3 +35,6 @@ label {
 	display: block;
 	margin: 5% auto;
 }
+.answer-text {
+	text-align: center;
+}
