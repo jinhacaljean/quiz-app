@@ -79,12 +79,14 @@ var currentScore = 0
 function startQuiz(){
 	$('.js-start-quiz').hide();
 	$('.js-question-format').removeClass('hidden');
+	$('h1').addClass('hidden');
 	renderQuestion();
 }
 
 // Function to render question
 function renderQuestion(){
 	$('.js-question-number').text(`Question ${questionIndex + 1} out of ${questions.length}`);
+	$('.js-current-score').text(`Your current score is ${currentScore} out of ${questions.length}`);
 	$('.js-question').text(questions[questionIndex].question);
 	$('span#answerA').text(questions[questionIndex].answers[0]);
 	$('span#answerB').text(questions[questionIndex].answers[1]);
@@ -95,28 +97,31 @@ function renderQuestion(){
 function checkQuestion(response){
 	// does submitted answer match correct answer?
 	var correctChoice = questions[questionIndex].correctAnswer;
+
 	if (response === correctChoice && questions[questionIndex].questionNumber < questions.length) {
 		// if yes, currentScore += 1
 		currentScore += 1;
+		$('.js-current-score').text(`Your current score is ${currentScore} out of ${questions.length}`);
 		$('.js-question-submit').hide();
-		$('.js-question-format').after( "<p class = 'answer-text'>Oh you betcha!</p>");
+		$('.js-next-question').before( "<p class = 'answer-text'>Oh you betcha, you got it right!</p>");
 		$('.js-next-question').removeClass('hidden');
 	}
 	else if (response === correctChoice && questions[questionIndex].questionNumber === questions.length) {
 		currentScore += 1;
+		$('.js-current-score').text(`Your current score is ${currentScore} out of ${questions.length}`);
 		$('.js-question-submit').hide();
-		$('.js-question-format').after( "<p class = 'answer-text'>Oh you betcha!</p>");
+		$('.js-results').before( "<p class = 'answer-text'>Oh you betcha, you got it right!</p>");
 		$('.js-results').removeClass('hidden');
 	}
 	else if (response !== correctChoice && questions[questionIndex].questionNumber < questions.length) {
 		$('.js-question-submit').hide();
-		$('.js-question-format').after( `<p class = "answer-text">Don'cha know, the correct answer is ${correctChoice}.</p>`);
+		$('.js-next-question').before( `<p class = "answer-text">Don'cha know, the correct answer is ${correctChoice}.</p>`);
 		// button appears for next question
 		$('.js-next-question').removeClass('hidden');
 	}
 	else if (response !== correctChoice && questions[questionIndex].questionNumber === questions.length) {
 		$('.js-question-submit').hide();
-		$('.js-question-format').after( `<p class = "answer-text">Don'cha know, the correct answer is ${correctChoice}.</p>`);
+		$('.js-results').before( `<p class = "answer-text">Don'cha know, the correct answer is ${correctChoice}.</p>`);
 		// button appears for next question
 		$('.js-results').removeClass('hidden');
 	}
@@ -135,8 +140,8 @@ function nextQuestion(){
 }
 
 function showResults(){
-	$('.js-question-format').after(`<p class = "answer-text-final">That's it! You got ${currentScore} questions out of ${questions.length} total questions correct.</p>`)
-	$('.js-question-format').hide();
+	$('.js-play-again').before(`<p class = "answer-text-final">That's it! You got ${currentScore} questions out of ${questions.length} total questions correct.</p>`)
+	$('.js-question-format-container').hide();
 	$('.js-play-again').removeClass('hidden');
 	$('.js-results').addClass('hidden');
 	$('.js-question-number').hide();
@@ -147,6 +152,8 @@ function playAgain(){
 	questionIndex = 0;
 	currentScore = 0;
 	$('.js-question-format').show();
+	$('.js-question-format-container').show();
+
 	$('.js-question-number').show();
 	$('.answer-text-final').hide();
 	$('input').prop('checked', false);
@@ -167,6 +174,7 @@ function handleQuizStart(){
 
 function handleQuestionSubmit(){
 	$('.js-question-submit').click(function(event){
+	$('input[type=radio][name=question]').required = true;
 	response = $('input[type=radio][name=question]:checked').parent().find('span').text();
 	console.log(response);
 	checkQuestion(response);
@@ -177,6 +185,7 @@ function handleQuestionSubmit(){
 function handleNextQuestion(){
 	$('.js-next-question').click(function(e){
 		nextQuestion();
+
 	});
 }
 
@@ -206,3 +215,4 @@ $(function(){
 	handlePlayAgain();
 	handleResultsClick();
 });
+

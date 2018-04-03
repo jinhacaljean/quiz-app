@@ -1,19 +1,48 @@
 * {
   box-sizing: border-box;
+  font-family:'Open Sans', sans-serif;
+}
+html { 
+  background: url("Assets/openingbackground.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
+/*body {
+	background-image: url("Assets/openingbackground.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	max-height: 100vh;
+
+}*/
 .container {
-	max-width: 700px;
+	padding: 2%;
 	margin: 0 auto;
+	text-align: center;
+
 }
 
 h1 {
 	text-align: center;
+	font-family:'Raleway', sans-serif;
+	text-transform: uppercase;
+	font-size: 7vmax;
+	margin-top: 15vmax;
+	color: white;
+	line-height: 1.25;
 }
 
 button {
-	width: 150px;
-	height: 50px;
+	text-transform: uppercase;
+	font-weight: bold;
+	background-color: black;
+	border: none;
+	color: white;
+	width: 60vmin;
+	height: 15vmin;
+	
 	display: block;
 	text-align: center;
 	margin: 0 auto;
@@ -25,7 +54,16 @@ button {
 
 .question-format {
 	text-align: center;
+	padding: 20px;
+	background-color: rgba(255, 255, 255, .5);
+	width: 80%;
+	margin: 0 auto;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
+
 
 /*form.question-format {
 	display: block;
@@ -35,6 +73,52 @@ label {
 	display: block;
 	margin: 5% auto;
 }
-.answer-text {
-	text-align: center;
+
+
+/*m MEDIA QUERIES*/
+@media screen and (orientation:landscape) {
+	label {
+		margin: 2% 0;
+	}
+	button {
+		width: 30vmax;
+		height: 8vmax;
+	}
 }
+
+@media only screen and (min-width: 700px) {
+	button {
+		width: 250px;
+		height: 50px;
+		font-size: 1.5em;
+	}
+	label {
+		margin: 5% auto;
+	}
+	.answer-text {
+		text-align: center;
+		font-size: 2em;
+	}
+	.answer-text-final {
+		font-size: 2em;
+	}
+	.question-text, label {
+		font-size: 2em;
+	}
+	.question-format {
+		max-width: 800px;
+	}
+}
+/*@media screen and (min-width: 700px) {
+	.container {
+		max-width: 700px;
+	}
+	h1 {
+		font-size: 10vmax;
+		color: white;
+	}
+	button {
+	width: 150px;
+	height: 50px;
+	}
+}*/

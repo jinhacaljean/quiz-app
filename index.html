@@ -2,13 +2,16 @@
 <html>
 <head>
 	<title>What do you know about Wisconsin?</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
 	<link rel="stylesheet" href="main.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Raleway:400,700" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
 		<h1>What do you know about Wisconsin?</h1>
-		<p class="js-question-number"></p>
+		
 		<button class="js-start-quiz">Start Quiz</button>
 		<!-- <div class="js-question-format question-format hidden">
 			<p class="js-question"></p>
@@ -25,32 +28,39 @@
 			<button class="js-question-submit">Submit Answer</button>
 		</div> -->
 		<div class="js-question-format question-format hidden">
-			<p class="js-question"></p>
-			<form class = "question-format">
-				<label for="answerA" id="answerA">
-					<input type="radio" name="question" id="answerA" value="0" required>
-					<span id="answerA"></span>
-				</label>
-				<label for="answerA" id="answerB">
-					<input type="radio" name="question" id="answerB" value="0" required>
-					<span id="answerB"></span>
-				</label>
-				<label for="answerA" id="answerC">
-					<input type="radio" name="question" id="answerC" value="0" required>
-					<span id="answerC"></span>
-				</label>
-				<label for="answerA" id="answerD">
-					<input type="radio" name="question" id="answerD" value="0" required>
-					<span id="answerD"></span>
-				</label>
-			</form>
-			<button class="js-question-submit">Submit Answer</button>
+			<div class="js-question-container">
+				<p class="js-question-number"></p>
+				<p class="js-current-score"></p>
+				<div class="js-question-format-container">
+					<p class="js-question question-text"></p>
+					<form class = "question-format-form">
+						<label for="answerA" id="answerA">
+							<input type="radio" name="question" id="answerA" value="0" required = "required">
+							<span id="answerA"></span>
+						</label>
+						<label for="answerA" id="answerB">
+							<input type="radio" name="question" id="answerB" value="0" required = "required">
+							<span id="answerB"></span>
+						</label>
+						<label for="answerA" id="answerC">
+							<input type="radio" name="question" id="answerC" value="0" required = "required">
+							<span id="answerC"></span>
+						</label>
+						<label for="answerA" id="answerD">
+							<input type="radio" name="question" id="answerD" value="0" required = "required">
+							<span id="answerD"></span>
+						</label>
+					</form>
+				</div>
+					<button class="js-question-submit">Submit Answer</button>
+					<button class="js-next-question hidden">Next Question</button>
+					<button class="js-play-again hidden">Play Again</button>
+					<button class="js-results hidden">Results</button>
+				</div>
+			</div>
+
 		</div>
-		<button class="js-next-question hidden">Next Question</button>
-		<button class="js-play-again hidden">Play Again</button>
-		<button class="js-results hidden">Results</button>
-	</div>
-	<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
- 	<script src="app.js"></script>
-</body>
-</html>
+		<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+		<script src="app.js"></script>
+	</body>
+	</html>
