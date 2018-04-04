@@ -74,8 +74,6 @@ var questionIndex = 0
 var currentScore = 0
 
 // Functions that render HTML into the DOM
-
-
 function startQuiz(){
 	$('.js-start-quiz').hide();
 	$('.js-question-format').removeClass('hidden');
@@ -140,7 +138,15 @@ function nextQuestion(){
 }
 
 function showResults(){
-	$('.js-play-again').before(`<p class = "answer-text-final">That's it! You got ${currentScore} questions out of ${questions.length} total questions correct.</p>`)
+	if (currentScore === questions.length) {
+		$('.js-play-again').before(`<p class = "answer-text-final">You must be a Wisconsin native, you got ${currentScore} questions out of ${questions.length} total questions correct.`)
+	}
+	else if (currentScore >= questions.length/2) {
+		$('.js-play-again').before(`<p class = "answer-text-final">Nice work, you got ${currentScore} questions out of ${questions.length} total questions correct.`)
+	}
+	else {
+		$('.js-play-again').before(`<p class = "answer-text-final">Do you consider Wisconsin a "fly-over state"? You only got ${currentScore} questions out of ${questions.length} total questions correct.`)
+	}
 	$('.js-question-format-container').hide();
 	$('.js-play-again').removeClass('hidden');
 	$('.js-results').addClass('hidden');
@@ -165,8 +171,6 @@ function playAgain(){
 
 
 // Event Listenters
-
-// function to start quiz
 function handleQuizStart(){
 	$('.js-start-quiz').click(function(event){
 		event.preventDefault();
@@ -212,11 +216,6 @@ function handleResultsClick() {
 		showResults();
 	});
 }
-
-// function to submit a question
-
-
-
 
 // loads functions on page load
 $(function(){

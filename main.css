@@ -65,10 +65,22 @@ button {
 	transform: translate(-50%, -50%);
 }
 
-
-/*form.question-format {
-	display: block;
-}*/
+.trackers {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 60%;
+	max-width: 80%;
+	padding-bottom: 5%;
+	border-bottom: 1px solid black;
+}
+.tracker-image img {
+	max-height: 5em;
+}
+.tracker-text {
+	text-align: left;
+	margin-left: 3%;
+}
 
 label {
 	display: block;
@@ -94,7 +106,7 @@ label {
   		-moz-background-size: cover;
  		-o-background-size: cover;
  		background-size: cover;
- 		
+
 	}
 	button {
 		width: 250px;
