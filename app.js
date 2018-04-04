@@ -146,6 +146,7 @@ function showResults(){
 	$('.js-results').addClass('hidden');
 	$('.js-question-number').hide();
 	$('.answer-text').hide();
+	$('.js-current-score').hide();
 }
 
 function playAgain(){
@@ -153,7 +154,7 @@ function playAgain(){
 	currentScore = 0;
 	$('.js-question-format').show();
 	$('.js-question-format-container').show();
-
+	$('.js-current-score').show();
 	$('.js-question-number').show();
 	$('.answer-text-final').hide();
 	$('input').prop('checked', false);
@@ -168,22 +169,30 @@ function playAgain(){
 // function to start quiz
 function handleQuizStart(){
 	$('.js-start-quiz').click(function(event){
+		event.preventDefault();
 		startQuiz();
 	});
 }
 
 function handleQuestionSubmit(){
 	$('.js-question-submit').click(function(event){
-	$('input[type=radio][name=question]').required = true;
-	response = $('input[type=radio][name=question]:checked').parent().find('span').text();
-	console.log(response);
-	checkQuestion(response);
-	console.log('current score is ' + currentScore);
-	});
+		event.preventDefault();
+		if ($('input[name=question]:checked').length === 0) {
+	  		$('.js-alert-text').text('Please select an answer.');
+		}
+		else {
+			response = $('input[type=radio][name=question]:checked').parent().find('span').text();
+			console.log(response);
+			checkQuestion(response);
+			console.log('current score is ' + currentScore);
+			$('.js-alert-text').text('');
+			}
+		});
 }
 
 function handleNextQuestion(){
 	$('.js-next-question').click(function(e){
+		event.preventDefault();
 		nextQuestion();
 
 	});
@@ -191,6 +200,7 @@ function handleNextQuestion(){
 
 function handlePlayAgain (){
 	$('.js-play-again').click(function(e){
+		event.preventDefault();
 		playAgain();
 		
 	});
@@ -198,6 +208,7 @@ function handlePlayAgain (){
 
 function handleResultsClick() {
 	$('.js-results').click(function(e){
+		event.preventDefault();
 		showResults();
 	});
 }
