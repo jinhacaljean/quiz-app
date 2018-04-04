@@ -73,6 +73,7 @@ button {
 	max-width: 80%;
 	padding-bottom: 5%;
 	border-bottom: 1px solid black;
+	
 }
 .tracker-image img {
 	max-height: 5em;
@@ -80,6 +81,7 @@ button {
 .tracker-text {
 	text-align: left;
 	margin-left: 3%;
+	font-size: .75em;
 }
 
 label {
@@ -128,6 +130,9 @@ label {
 	}
 	.question-format {
 		max-width: 800px;
+	}
+	.tracker-text {
+		font-size: 1em;
 	}
 
 }
